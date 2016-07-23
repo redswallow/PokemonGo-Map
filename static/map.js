@@ -92,11 +92,32 @@ function initMap() {
             lng: center_lng
         },
         map: map,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        draggable: true
+    });
+    marker.addListener('dragend', function(e) {
+        placeMarkerAndPanTo(e.latLng, map)
+    });
+
+    map.addListener('click', function(e) {
+        placeMarkerAndPanTo(e.latLng, map)
     });
 
     addMyLocationButton();
     initSidebar();
+};
+
+function placeMarkerAndPanTo(latLng, map) {
+    $.post("next_loc?" + $.param({
+            lat: latLng.lat(),
+            lon: latLng.lng()
+    }))
+    .done(function (data) {
+        marker.setPosition(latLng);
+        map.panTo(latLng);
+    })
+    .fail(function() {
+    });
 };
 
 function initSidebar() {
