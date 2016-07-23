@@ -335,7 +335,8 @@ function setupScannedMarker(item) {
         center: circleCenter,
         radius: 100,    // 10 miles in metres
         fillColor: getColorByDate(item.last_modified),
-        strokeWeight: 1
+        strokeWeight: 0,
+        fillOpacity: 0.35
     });
 
     // marker.infoWindow = new google.maps.InfoWindow({
